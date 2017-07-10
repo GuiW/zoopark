@@ -1,5 +1,5 @@
 <?php get_header(); ?>
-<!-- INDEX -->
+<!-- FRONT-PAGE -->
   <div id="index-banner" class="parallax-container">
     <div class="section no-pad-bot">
       <div class="slogan container">
@@ -14,7 +14,7 @@
 
       </div>
     </div>
-    <div class="parallax"><img src="<?php bloginfo('template_url');?>/content/images/background1.jpg" alt="Unsplashed background img 1"></div>
+    <div class="parallax"><img src="<?php the_field('paralax01')?>" alt="Unsplashed background img 1"></div>
   </div>
 
   <!-- animaux promote-->
