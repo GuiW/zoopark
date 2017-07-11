@@ -7,6 +7,19 @@
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link href="<?php bloginfo('template_url');?>/css/styles.min.css" type="text/css" rel="stylesheet" media="screen,projection"/>
 
+  <?php 
+    $custom_logo_id = get_theme_mod( 'custom_logo' );
+    
+    $image = wp_get_attachment_image_src( $custom_logo_id , 'full' );
+ 
+  ?>
+  <style>
+   .brand-logo {
+     background-image: url(<?php echo esc_url($image[0]); ?>);
+     //background-color:red;
+   }
+  </style>
+
   <?php wp_head(); ?>
   
 </head>

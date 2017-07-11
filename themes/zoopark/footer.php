@@ -1,24 +1,48 @@
   <footer class="page-footer brown lighten-1">
     <div class="container">
       <div class="row">
-        <div class="col l3 m6 s12">
-          <h3 class="white-text">Spectacles</h3>
-          <ul class="footer-links">
-            <li><a href="#!">Volières aux perroquets</a></li>
-            <li><a href="#!">L'envol des Quetzals</a></li>
-            <li><a href="#!">La parade acrobatique des singes</a></li>
-            <li><a href="#!">Ballet aquatique des otaries</a></li>
-          </ul>
-        </div>
-        <div class="col l3 m6 s12">
-          <h3 class="white-text">Activités</h3>
-          <ul class="footer-links">
-            <li><a href="#!">Visites des jardins</a></li>
-            <li><a href="#!">Le parcours dans les arbres</a></li>
-            <li><a href="#!">Balades sous les serres</a></li>
-            <li><a href="#!">Trekking Adventure</a></li>
-          </ul>
-        </div>
+        <?php 
+          //SPECTACLES
+          $args = array(
+            'category_name'   => 'spectacles',
+            'posts_per_page'  => 4
+          );
+          $requete = new WP_Query($args);
+
+          if($requete->have_posts()) : ?>
+          
+            <div class="col l3 m6 s12">
+              <h3 class="white-text">Spectacles</h3>
+              <ul class="footer-links">
+                <?php while($requete->have_posts()) : $requete->the_post(); ?>
+                <li><a href="#!"><?php the_title(); ?></a></li>
+                <?php endwhile; ?>
+              </ul>
+            </div>
+         <?php endif; 
+          wp_reset_postdata(); ?>
+
+        <?php
+        // ACTIVITES
+         $args = array(
+           'category_name'   => 'activites',
+           'posts_per_page'  => 4
+         );
+         $requete = new WP_Query($args);
+
+         if($requete->have_posts()) : ?>
+
+           <div class="col l3 m6 s12">
+             <h3 class="white-text">Activités</h3>
+             <ul class="footer-links">
+               <?php while($requete->have_posts()) : $requete->the_post(); ?>
+               <li><a href="#!"><?php the_title(); ?></a></li>
+               <?php endwhile; ?>
+             </ul>
+           </div>
+        <?php endif; 
+         wp_reset_postdata(); ?>
+
         <div class="gmap col l6 m12 s12">
           map google
         </div>
@@ -29,13 +53,25 @@
         <div class="row">
           <div class="col s12 center">
             <h3 class="brown-text">Adresse</h3>
-            <p>
-              <h4><em>Gosselies</em> <img src="<?php bloginfo('template_url');?>/img/ZOOPARK-03.svg" alt="logo"></h4>
-              <span itemprop="streetAddress">Rue Stranard -</span>
-              <span itemprop="addressLocality">6041 Gosselies -</span>
-              (<span itemprop="addressRegion">Belgique</span>- BE)
-            </p>
-            <p>E411, sortie 25 direction Bouillon sur N89, sortie km 4,7</p>
+
+            <?php
+              //COORDONNEES
+              $args = array(
+                'pagename' => 'coordonnees',
+              );
+              $requete = new WP_Query($args);
+              if($requete->have_posts()) : $requete->the_post() ?>
+                <p>
+                  <h4><em>Gosselies</em> 
+                  <?php the_custom_logo(); ?>
+                  </h4>
+                  <span itemprop="streetAddress">Rue <?php the_field('rue_fld')?> -</span>
+                  <span itemprop="addressLocality"><?php the_field('zip_fld')?> -</span>
+                  (<span itemprop="addressRegion"><?php the_field('pays_fld')?></span>- <?php the_field('pays-iso_fld')?>)
+                </p>
+                <p><?php the_field('direction_fld')?></p>
+            <?php endif; ?>
+
           </div>
         </div>
       </div>
