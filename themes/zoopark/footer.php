@@ -43,9 +43,19 @@
         <?php endif; 
          wp_reset_postdata(); ?>
 
-        <div class="gmap col l6 m12 s12">
-          map google
-        </div>
+         <?php
+         //COORDONNEES + MAP
+         $args = array(
+           'pagename' => 'coordonnees',
+         );
+
+         $requete = new WP_Query($args);
+         if($requete->have_posts()) : $requete->the_post() ?>
+          <div class="gmap col l6 m12 s12">
+            <?php the_field('map_fld')?>
+          </div>
+        <?php endif; ?>
+
       </div>
     </div>
     <div class="section white">
@@ -54,13 +64,11 @@
           <div class="col s12 center">
             <h3 class="brown-text">Adresse</h3>
 
+            
             <?php
-              //COORDONNEES
-              $args = array(
-                'pagename' => 'coordonnees',
-              );
-              $requete = new WP_Query($args);
-              if($requete->have_posts()) : $requete->the_post() ?>
+            //COORDONNEES 
+            $requete = new WP_Query($args);
+            if($requete->have_posts()) : $requete->the_post() ?>
                 <p>
                   <h4><em>Gosselies</em> 
                   <?php the_custom_logo(); ?>
@@ -70,7 +78,8 @@
                   (<span itemprop="addressRegion"><?php the_field('pays_fld')?></span>- <?php the_field('pays-iso_fld')?>)
                 </p>
                 <p><?php the_field('direction_fld')?></p>
-            <?php endif; ?>
+            <?php endif; 
+            wp_reset_postdata(); //Coordonnees + map ?>
 
           </div>
         </div>
@@ -96,6 +105,13 @@
   <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
   <script src="<?php bloginfo('template_url');?>/js/materialize.js"></script>
   <script src="<?php bloginfo('template_url');?>/js/init.js"></script>
+
+  <script>
+    $('.datepicker').pickadate({
+      selectMonths: true, // Creates a dropdown to control month
+      selectYears: 15 // Creates a dropdown of 15 years to control year
+    });
+  </script>
 
   <?php wp_footer(); ?>
 </body>

@@ -9,14 +9,11 @@
 
   <?php 
     $custom_logo_id = get_theme_mod( 'custom_logo' );
-    
     $image = wp_get_attachment_image_src( $custom_logo_id , 'full' );
- 
   ?>
   <style>
    .brand-logo {
      background-image: url(<?php echo esc_url($image[0]); ?>);
-     //background-color:red;
    }
   </style>
 
@@ -26,25 +23,27 @@
 <body>
   <nav class=" ">
     <div class="search-bar nav-wrapper lighten-1 container">
-      <form>
-        <div class="input-field">
-          <input id="search" type="search" required>
-          <label for="search"><i class="material-icons">search</i></label>
-          <i class="material-icons">close</i>
-        </div>
-      </form>
+      <?php get_search_form(); ?>
     </div>
   </nav>
   <nav class="white nav-princip" role="navigation">
     <div class="nav-wrapper container">
-      <a id="logo-container" href="#" class="brand-logo"><h1 class="brand">ZooPark/<em>adventure</em></h1></a>
-      <ul class="right hide-on-med-and-down">
-        <li><a href="#">Horaires <span>été 2016</span></a></li>
+      <a id="logo-container" href="<?php echo home_url(); ?>" class="brand-logo"><h1 class="brand">ZooPark/<em>adventure</em></h1></a>
+
+      <?php 
+        //main menu desktop
+          wp_nav_menu(array(
+            'container'       => '',
+            'menu_class'      => 'right hide-on-med-and-down',
+            'theme_location'  => 'main_nav',
+            'fallback_cb'     => false
+          ));
+      ?>
+        <!--<li><a href="#">Horaires <span>été 2016</span></a></li>
         <li><a href="mapzoo.html">Ou suis-je ? <span>plan du parc</span></a></li>
         <li><a href="#">Les animaux </a></li>
         <li><a href="contact.html">Contact <span>réservation</span></a></li>
-        <li><a href="#" class="material-icons">search</a><li>
-      </ul>
+        <li><a href="#" class="material-icons">search</a><li>-->
 
       <ul id="nav-mobile" class="side-nav">
         <li><a href="#">Horaires</a></li>
