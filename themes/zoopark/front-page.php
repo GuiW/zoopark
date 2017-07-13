@@ -9,7 +9,7 @@
         </div>
 
         <div class="row center">
-          <a href="#" id="download-button" class="btn-large waves-effect waves-light brown lighten-1">Billeterie</a>
+          <a href="<?php echo get_post_type_archive_link( 'billet' ); ?>" id="download-button" class="btn-large waves-effect waves-light brown lighten-1">Billeterie</a>
         </div>
 
       </div>
@@ -67,10 +67,26 @@
         <div class="row">
           <div class="col s12 center">
 
+            <?php 
+            //Billets
+            $args = array(
+                'post_type' => 'billet',
+                'post_status' => 'publish',
+                'posts_per_page' => 2
+            );
+            $requete = new WP_Query($args);
+
+            if($requete->have_posts()) : ?>
+
               <p>Achetez votre ZOOPASS et accéder à notre Parc toute l'année !</p>
-              <a href="#" id="download-button" class="call-btn btn-large waves-effect waves-light brown lighten-1">ZooPass<strong> 1jours </strong><span>28€*</span></a>
-              <a href="#" id="download-button" class="call-btn btn-large waves-effect waves-light brown lighten-1">ZooPass<strong> 1ans </strong> <span>45€*</span></a>
+
+              <?php while($requete->have_posts()) : $requete->the_post(); ?>
+                <a href="<?php the_permalink(); ?>" id="download-button" class="call-btn btn-large waves-effect waves-light brown lighten-1">ZooPass<strong> <?php the_title(); ?> </strong><span><?php the_field('adulte_fld'); ?>€*</span></a>
+              <?php endwhile; ?>
+
               <p>*<small>Pass individuel</small></p>
+
+            <?php endif; wp_reset_postdata();?>
 
           </div>
         </div>

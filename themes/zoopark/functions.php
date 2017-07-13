@@ -72,4 +72,8 @@
         return $var . $title;
 
     }
+
+
+/**** ACF wysiwyg editor ****/
+  remove_filter ('acf_the_content', 'wpautop');
 ?>

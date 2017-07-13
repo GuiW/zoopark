@@ -21,18 +21,27 @@
   $message_sent    = "Merci! Votre message a bien été envoyé.";
 
   //user posted variables
-  $firstname = $POST['prenom'];
+  $firstname = $_POST['prenom'];
   $name = $_POST['nom'];
   $email = $_POST['email'];
   $date = $_POST['date'];
   $message = $_POST['demande'];
   $tel = $_POST['tel'];
+  
+  if (empty($tel)){
+    $mailCont = $message;
+  }
+  else {
+    $mailCont = "De : ".$firstname." ".$name."\r\n";
+    $mailCont .= $message."\r\n";
+    $mailCont .= "Téléphone : ".$tel;
+
+  }
 
   //php mailer variables
   $to = get_option('admin_email');
   $subject = "Quelqu'un vous a envoyé un message depuis ".get_bloginfo('name');
-  $headers = 'From: '. $email . "\r\n" .
-    'Reply-To: ' . $email . "\r\n";
+  $headers = 'From: '. $email . "\r\n".'Reply-To: ' . $email . "\r\n";
 
   //Validate the form :
   if ($_POST['submitted']) {
@@ -43,12 +52,12 @@
 
     else { //email is valid
       //validate presence of name and message
-      if(empty($name) || empty($message) || empty($date)){
+      if( empty($firstname) || empty($name) || empty($message)){
         my_contact_form_generate_response("error", $missing_content);
       }
       else { //ready to go!
         //send email
-        $sent = wp_mail($to, $subject, strip_tags($message), $headers);
+        $sent = wp_mail($to, $subject, strip_tags($mailCont), $headers);
         if($sent) my_contact_form_generate_response("success", $message_sent); //message sent!
         else my_contact_form_generate_response("error", $message_unsent); //message wasn't sent
       }
@@ -108,8 +117,8 @@
       <form class="col s12" action="<?php the_permalink(); ?>" method="post">
         <div class="row">
           <div class="input-field col s6">
-            <input id="first_name" type="text" class="validate" name="prenom" value="<?php echo esc_attr($_POST['prenom']); ?>">
-            <label for="first_name">Prénom</label>
+            <input id="first_name" type="text" class="validate" name="prenom" required value="<?php echo esc_attr($_POST['prenom']); ?>">
+            <label for="first_name">Prénom <span class="required">*</span></label>
           </div>
           <div class="input-field col s6">
             <input id="last_name" type="text" class="validate" name="nom" required value="<?php echo esc_attr($_POST['nom']); ?>">
@@ -168,8 +177,10 @@
     <div class="container">
       <div class="row">
         <div class="col s12">
-          <h3 class="white-text">ZooPark</h3>
-          <p class="grey-text text-lighten-4">Les ZooPark Adventure sont des complexes animalier spécialisés dans le respect et la protection des espèces qui opèrent aux quatres coins de l'Europe. Spécialisé dans l'accueil des familles et la prise en charge d'école, ils raviront également les amoureux d'escalade nature avec de nombreuses activités. Plus de 200 espèces par sites dont 800 animaux venant de tous les continents. On retrouve aussi de nombreux spectacles en fonction des saisons.</p>
+          <?php if(have_posts()) : the_post();?>
+          <h3 class="white-text"><?php the_field('titleDesc_fld'); ?></h3>
+          <p class="grey-text text-lighten-4"><?php the_field('textDesc_fld', false, false); ?></p>
+          <?php endif; ?>
         </div>
       </div>
     </div>

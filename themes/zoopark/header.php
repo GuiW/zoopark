@@ -8,6 +8,7 @@
   <link href="<?php bloginfo('template_url');?>/css/styles.min.css" type="text/css" rel="stylesheet" media="screen,projection"/>
 
   <?php 
+  //LOGO background-image
     $custom_logo_id = get_theme_mod( 'custom_logo' );
     $image = wp_get_attachment_image_src( $custom_logo_id , 'full' );
   ?>
@@ -16,6 +17,25 @@
      background-image: url(<?php echo esc_url($image[0]); ?>);
    }
   </style>
+
+  <?php 
+  //Background image page contact
+  if(is_page('contact')) : ?>
+    <?php 
+      $args = array(
+        'pagename' => 'contact'
+      );
+      
+      $requete = new WP_Query($args); 
+      
+      if($requete->have_posts()) : $requete->the_post(); ?>
+      <style>
+        .company {
+          background : transparent url(<?php the_field('imgDesc_fld') ?>) center no-repeat;
+        }
+      </style>
+    <?php endif; wp_reset_postdata(); ?>
+  <?php endif; ?>
 
   <?php wp_head(); ?>
   
