@@ -8,10 +8,12 @@
  
     global $response;
  
-    if($type == "success") 
+    if($type == "success") {
       $response = "<div class='response success'>{$message}</div>";
-    else 
+    }
+    else {
       $response = "<div class='response error'>{$message}</div>";
+    }
   }
 
   //response messages
@@ -35,7 +37,6 @@
     $mailCont = "De : ".$firstname." ".$name."\r\n";
     $mailCont .= $message."\r\n";
     $mailCont .= "Téléphone : ".$tel;
-
   }
 
   //php mailer variables
@@ -78,33 +79,6 @@
       </div>
     </div>
   </div>
-
-<!-- Success/error style -->
-  <style type="text/css">
-    .response {
-      margin-bottom : 30px;
-      padding: 8px 10px;
-      border-radius: 3px;
-      color : white;
-    }
-
-    .error{
-      background-color: #e57373;
-    }
-
-    .success{
-      background-color: #66BB6A;
-    }
-
-    .required {
-      color : #e57373;
-    }
-
-    .form-instructions {
-      font-size : .8rem;
-      color : #666
-    }
-  </style>
 
 <!-- FORM -->
   <div class="container">

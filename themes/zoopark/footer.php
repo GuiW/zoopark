@@ -113,6 +113,10 @@
     });
   </script>
 
+  <script>   $(document).ready(function() {
+    $('select').material_select();
+  });</script>
+
   <?php wp_footer(); ?>
 </body>
 </html>

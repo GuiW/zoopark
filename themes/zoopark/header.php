@@ -6,6 +6,7 @@
   <title>Zoopark</title>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link href="<?php bloginfo('template_url');?>/css/styles.min.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <link href="<?php bloginfo('template_url');?>/css/myStyle.css" type="text/css" rel="stylesheet" media="screen,projection"/>
 
   <?php 
   //LOGO background-image
@@ -59,18 +60,24 @@
             'fallback_cb'     => false
           ));
       ?>
-        <!--<li><a href="#">Horaires <span>été 2016</span></a></li>
-        <li><a href="mapzoo.html">Ou suis-je ? <span>plan du parc</span></a></li>
-        <li><a href="#">Les animaux </a></li>
-        <li><a href="contact.html">Contact <span>réservation</span></a></li>
-        <li><a href="#" class="material-icons">search</a><li>-->
 
-      <ul id="nav-mobile" class="side-nav">
+      <?php 
+        //main menu mobile
+          wp_nav_menu(array(
+            'container'       => '',
+            'menu_class'      => 'side-nav',
+            'menu_id'         => 'nav-mobile',
+            'theme_location'  => 'main_nav',
+            'fallback_cb'     => false
+          ));
+      ?>
+
+      <!--<ul id="nav-mobile" class="side-nav">
         <li><a href="#">Horaires</a></li>
         <li><a href="#">Ou suis-je ? </a></li>
         <li><a href="#">Les animaux </a></li>
         <li><a href="#">Infos pratiques </a></li>
-      </ul>
+      </ul>-->
       <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
     </div>
   </nav>

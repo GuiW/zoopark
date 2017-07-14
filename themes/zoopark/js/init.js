@@ -4,6 +4,16 @@
     $('.button-collapse').sideNav();
     $('.parallax').parallax();
 
+    //Smooth scroll
+    var $root = $('html, body');
+    $('#menu-item-75 a').click(function() {
+        the_id = $(this).attr("href");
+        $root.animate({
+          scrollTop: $(the_id).offset().top
+        }, 'slow');
+        return false;
+    });
+
 
     //Toggle telephone
     $('#test5').on('change', function() {
@@ -27,15 +37,16 @@
 
 /******************************************************************************/
 /**************************** GEOLOCALISATION *********************************/
+/******************************************************************************/
+
 //Variables globales
-var rayon = 10;
-var etat = "offline";
-var posLat = "";
-var posLong = "";
-var latMax = "";
-var latMin = "";
-var longMax = "";
-var longMin = "";
+var tempLat = 50.47094456845385;
+var tempLong = 4.468710422515869;
+var latMax = 50.474642;
+var latMin = 50.468388;
+var longMax = 4.474784;
+var longMin = 4.461202;
+
 
 function Geolocalisation() {
   var optionsGeo = {
@@ -49,30 +60,49 @@ function Geolocalisation() {
 function successGeo(pos) {
   crd = pos.coords;
   console.log("Latitude : "+crd.latitude)
-  console.log("Latitude : "+crd.longitude)
-  posLat = crd.latitude;
-  posLong = crd.longitude;
-  CalculCoordo(crd);
+  console.log("Longitude : "+crd.longitude)
+  CalculCoordo(tempLong, tempLat, $('#pointer'));
 }
 
 function errorGeo(err) {
   console.log(err);
 }
 
-function CalculCoordo (crd){
-  ratio_lat = 1/111*rayon;
-  latMin = crd.latitude - ratio_lat;
-  latMax = crd.latitude + ratio_lat;
-  console.log("lat : "+latMin+"/"+latMax);
-  //long 1° = 5*111*Math.cos(lat_actuelle);
-  ratio_long = rayon/111*Math.cos(crd.latitude);
-  longMin = crd.longitude - ratio_long;
-  longMax = crd.longitude + ratio_long;
-  console.log("long : "+longMin+"/"+longMax);
-  listingStations();
+function AnimalsCoordo() {
+  $('.animal-icon').each(function(){
+    long = $(this).attr('data-long');
+    lat = $(this).attr('data-lat');
+    CalculCoordo(long, lat, $(this));
+  })
 }
 
-/******************************************************************************/    
+function CalculCoordo (long, lat, el){ 
+  ratio_long = longMax - longMin;
+  posLong =  ((long - longMin)/ratio_long)*100 + "%";
+  ratio_lat = latMax - latMin;
+  posLat =  ((latMax - lat)/ratio_lat)*100 + "%";
+  el.css({"top": posLat, "left": posLong});
+}
+
+Geolocalisation();
+AnimalsCoordo();
+
+/******************************************************************************/
+//Animals icons - Toggle visibility
+$('#select-icons').on('change', function(){
+  selectVal = $(this).val();
+
+  $(".animal-icon").each(function(){
+    if($(this).attr("data-animal") == selectVal) {
+      $(this).addClass("active");
+    }
+    else {
+      $(this).removeClass("active");
+    }
+  })
+
+})
+
 
   }); // end of document ready
 })(jQuery); // end of jQuery name space
