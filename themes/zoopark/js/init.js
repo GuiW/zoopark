@@ -61,7 +61,16 @@ function successGeo(pos) {
   crd = pos.coords;
   console.log("Latitude : "+crd.latitude)
   console.log("Longitude : "+crd.longitude)
-  CalculCoordo(tempLong, tempLat, $('#pointer'));
+  posLong = crd.longitude;
+  posLat = crd.latitude;
+
+  //Si la géolocalisation n'est pas assez précise
+  if (posLat > latMax || posLat < latMin || posLong > longMax || posLong < longMin) {
+    CalculCoordo(tempLong, tempLat, $('#pointer'));
+  }
+  else {
+    CalculCoordo(posLong, posLat, $('#pointer'));
+  }
 }
 
 function errorGeo(err) {

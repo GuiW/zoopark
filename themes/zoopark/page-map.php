@@ -45,6 +45,7 @@
           <div id="pointer"></div>
          <?php endif; ?>
 
+        <!-- ICONES D'ANIMAUX SUR LA MAP -->
          <?php 
          //Icones d'animaux
           $args = array(
