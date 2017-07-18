@@ -65,9 +65,9 @@
   content : '';
   display : block;
   position : absolute;
-  top : -5%; left : -5%;
-  width : 110%; height : 110%;
-  border : 5px solid white;
+  top : -2.5%; left : -2.5%;
+  width : 105%; height : 105%;
+  border : 3px solid white;
   border-radius : 50%;
   animation : halo 1.4s infinite;
 }

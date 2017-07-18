@@ -16,8 +16,8 @@
     <div class="row">
     <?php while(have_posts()) : the_post(); ?>
       <div class="col s12 m6 l4">
-        <div class="card card-panel hoverable">
-          <div class="card-image">
+        <div class="card z-depth-2">
+          <div class="card-image z-depth-1">
             <?php $image = get_field('imgAnimal_fld');
             if( !empty($image)) : ?>
             <img src="<?php echo $image['url']?>" alt="<?php echo $image['alt']?>">
