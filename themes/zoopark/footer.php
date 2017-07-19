@@ -15,7 +15,7 @@
               <h3 class="white-text">Spectacles</h3>
               <ul class="footer-links">
                 <?php while($requete->have_posts()) : $requete->the_post(); ?>
-                <li><a href="#!"><?php the_title(); ?></a></li>
+                <li><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></li>
                 <?php endwhile; ?>
               </ul>
             </div>
@@ -36,7 +36,7 @@
              <h3 class="white-text">Activités</h3>
              <ul class="footer-links">
                <?php while($requete->have_posts()) : $requete->the_post(); ?>
-               <li><a href="#!"><?php the_title(); ?></a></li>
+               <li><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></li>
                <?php endwhile; ?>
              </ul>
            </div>
